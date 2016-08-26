@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app='app'>
+
+<head>
+
+    <title>AngularJs - Assignment Two -  User Registration</title>
+
+    <style type="text/css">
+        table {
+            clear: both;
+            width: 60%;
+        }
+
+        .User {
+            clear: both;
+            width: 30%;
+        }
+
+        .Activity {
+            clear: both;
+            width: 60%;
+        }
+
+        .border {
+            border: solid;
+            border-width: thin;
+        }
+    </style>
+
+</head>
+
+<body ng-controller='UserMgmtCtrl as UM'>
+
+    <h1>User Registration & Login Application</h1>
+
+    <form name="frmRegistration">
+
+        <h3>{{UM.Title.Registration}}</h3>
+
+        <table>
+            <tr>
+                <th>
+                    {{UM.User.Name.Label}}
+                </th>
+                <td>
+                    <input type="text" ng-model="UM.User.Name.Value" ng-required="UM.User.Name.IsRequired" name="Name" placeholder="{{UM.User.Name.PlaceHolder}}" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    {{UM.User.Phone.Label}}
+                </th>
+                <td>
+                    <input type="text" ng-model="UM.User.Phone.Value" ng-required="UM.User.Phone.IsRequired && !frmRegistration.Email.$valid" ng-pattern="UM.User.Phone.Pattern" name="Phone" placeholder="{{UM.User.Phone.PlaceHolder}}" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    {{UM.User.Email.Label}}
+                </th>
+                <td>
+                    <input type="email" ng-model="UM.User.Email.Value" ng-required="UM.User.Email.IsRequired" ng-pattern="UM.User.Email.Pattern" name="Email" placeholder="{{UM.User.Email.PlaceHolder}}" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    {{UM.User.Password.Label}}
+                </th>
+                <td>
+                    <input type="password" ng-model="UM.User.Password.Value" ng-required="UM.User.Password.IsRequired" name="Password" placeholder="{{UM.User.Password.PlaceHolder}}" />
+                </td>
+            </tr>
+        </table>
+
+        <input type="submit" name="Register" value="Register User" ng-disabled="frmRegistration.$invalid" />
+
+    </form>
+
+    <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+
+    <script type="text/javascript">
+
+        var appModule = angular.module('app', []);
+
+        appModule.controller('UserMgmtCtrl', [function () {
+
+            var Me = this;
+            Me.init = function () {
+
+                Me.Title = {
+                    Login: "Login",
+                    Registration: "Registration"
+                };
+
+                Me.Pattern = {
+                    Email: "",
+                    Phone: ""
+                }
+
+                Me.User = Me.UserObject();
+                Me.Users = [];
+                Me.LoggedInUser = null;
+
+            }
+
+            Me.UserObject = function () {
+                var obj = {
+                    Name: {
+                        Value: null,
+                        Label: "Name",
+                        IsRequired: true,
+                        pattern: "",
+                        PlaceHolder: "Name"
+                    },
+                    Email: {
+                        value: null,
+                        Label: "Email",
+                        IsRequired: true,
+                        pattern: Me.Pattern.Email,
+                        PlaceHolder: "test@test.com"
+                    },
+                    Phone: {
+                        value: null,
+                        Label: "Phone",
+                        IsRequired: true,
+                        pattern: Me.Pattern.Phone,
+                        PlaceHolder: "000-000-0000"
+                    },
+                    Password: {
+                        value: null,
+                        Label: "Password",
+                        IsRequired: true,
+                        pattern: ""
+                    }
+                };
+                return obj;
+            }
+
+            Me.init();
+
+        }])
+
+    </script>
+
+
+</body>
+
+</html>
+
+
+
+<!--ToDo.Reset = function (){
+                ToDo.User = '';
+                ToDo.Activity = '';
+            }
+
+            ToDo.AddUserActivity = function(){
+                var User = ToDo.AddUser(ToDo.User);
+                var response  = ToDo.AddItem(User, ToDo.Activity);
+                ToDo.Reset();
+            }
+
+            ToDo.AddUser = function(user){
+
+                var result = ToDo.UserActivity.find(function(obj){
+                    if(obj.User == user ) {
+                        return obj;
+                    }
+                });
+
+                if(result == undefined){
+                    var index = ToDo.UserActivity.push({
+                        User:user,
+                        Activity:[]
+                    });
+                    return ToDo.UserActivity[index - 1];
+                }
+                else{
+                    return result;
+                }
+
+            }
+
+            ToDo.AddItem = function(user, activity){
+                var result = user.Activity.find(function(obj){
+                    if(obj.ActivityName == activity ) {
+                        return obj;
+                    }
+                });
+
+                if(result == undefined){
+                    var index = user.Activity.push({
+                        ActivityName:activity
+                    });
+                    return user.Activity[index - 1].ActivityName;
+                }
+                else{
+                    return null;
+                }
+            }-->

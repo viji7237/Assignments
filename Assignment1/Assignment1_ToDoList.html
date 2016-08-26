@@ -1,0 +1,149 @@
+
+
+<html ng-app='app'>
+<head>
+	
+	<title>AngularJs - Assignment One -  ToDo List</title>
+	<style type="text/css">
+		table{
+			clear: both;width: 60%;
+		}
+		.User{
+			clear: both;width: 30%;
+		}
+		.Activity{
+			clear: both;width: 60%;
+		}
+		.border{
+			border: solid;
+			border-width: thin;
+		}
+	</style>
+
+</head>
+
+<body ng-controller='ToDoCtrl as todo'>
+	<form ng-submit="todo.AddUserActivity()" name="todoForm">
+		<h2>{{todo.ApplicationTitle}}</h2>
+
+		<br />
+
+		<div>
+			<div style=float:left>
+				<b>User :</b>&nbsp;
+			</div>
+			<div style=float:left>
+				<input id='User' type=text ng-model='todo.User' ng-required=true></input>&nbsp;
+			</div>
+			
+			<div style=float:left>
+				<b>Activity :</b>&nbsp;
+			</div>
+			<div style=float:left>
+				<input type=text id='Activity' ng-model='todo.Activity' ng-required=true></input>&nbsp;
+			</div>
+			<div style=float:left>
+				<button ng-disabled="todoForm.$invalid	" >Add</button>&nbsp;
+			</div>
+		</div>
+
+		<br>
+		<br>
+		<br>
+		<table>
+			<tr >
+				<th class="User border" >
+					User
+				</th>
+				<th class="Activity border" >
+					Activity
+				</th>
+			</tr>
+			<tr ng-repeat="UA in todo.UserActivity">
+				<td class="User border" >{{UA.User}}</td>
+				<td class="Activity border">
+					<b><div ng-repeat="activity in UA.Activity">{{activity.ActivityName}}</div></b>
+				</td>
+			</tr>
+		</table>
+		<div>
+			<div ng-repeat="UA in todo.UserActivity">{{}}</div>
+		</div>
+
+		<script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+
+		<script type="text/javascript">
+
+			var appModule = angular.module('app',[]);
+
+			appModule.controller('ToDoCtrl',[function(){
+
+				var ToDo =  this;
+
+				ToDo.init = function(){
+					ToDo.ApplicationTitle = 'ToDo List';
+					ToDo.UserActivity = [];
+					ToDo.Reset();
+				}
+
+				ToDo.Reset = function (){
+					ToDo.User = '';
+					ToDo.Activity = '';	
+				}
+				
+				ToDo.AddUserActivity = function(){
+					var User = ToDo.AddUser(ToDo.User);
+					var response  = ToDo.AddItem(User, ToDo.Activity);
+					ToDo.Reset();
+				}
+
+				ToDo.AddUser = function(user){
+
+					var result = ToDo.UserActivity.find(function(obj){
+						if(obj.User == user ) {
+							return obj;
+						}
+					});
+
+					if(result == undefined){
+						var index = ToDo.UserActivity.push({
+							User:user,
+							Activity:[]
+						});
+						return ToDo.UserActivity[index - 1];
+					}
+					else{
+						return result;
+					}
+
+				}
+
+				ToDo.AddItem = function(user, activity){
+					var result = user.Activity.find(function(obj){
+						if(obj.ActivityName == activity ) {
+							return obj;
+						}
+					});
+
+					if(result == undefined){
+						var index = user.Activity.push({
+							ActivityName:activity
+						});
+						return user.Activity[index - 1].ActivityName;
+					}
+					else{
+						return null;
+					}
+				}
+
+				ToDo.init();
+			
+			}])
+
+		</script>
+
+	</form>
+
+</body>
+
+</html>
