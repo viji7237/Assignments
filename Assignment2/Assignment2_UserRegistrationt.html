@@ -52,7 +52,7 @@
                     {{UM.User.Phone.Label}}
                 </th>
                 <td>
-                    <input type="text" ng-model="UM.User.Phone.Value" ng-required="UM.User.Phone.IsRequired && !frmRegistration.Email.$valid" ng-pattern="UM.User.Phone.Pattern" name="Phone" placeholder="{{UM.User.Phone.PlaceHolder}}" />
+                    <input type="text" ng-model="UM.User.Phone.Value" ng-required="UM.User.Phone.IsRequired" ng-pattern="UM.Pattern.Phone" name="Phone" placeholder="{{UM.User.Phone.PlaceHolder}}" />
                 </td>
             </tr>
             <tr>
@@ -60,7 +60,7 @@
                     {{UM.User.Email.Label}}
                 </th>
                 <td>
-                    <input type="email" ng-model="UM.User.Email.Value" ng-required="UM.User.Email.IsRequired" ng-pattern="UM.User.Email.Pattern" name="Email" placeholder="{{UM.User.Email.PlaceHolder}}" />
+                    <input type="email" ng-model="UM.User.Email.Value" ng-required="UM.User.Email.IsRequired" ng-pattern="UM.Pattern.Email" name="Email" placeholder="{{UM.User.Email.PlaceHolder}}" />
                 </td>
             </tr>
             <tr>
@@ -73,7 +73,7 @@
             </tr>
         </table>
 
-        <input type="submit" name="Register" value="Register User" ng-disabled="frmRegistration.$invalid" />
+        <input type="submit" name="Register" value="Register User"  />
 
     </form>
 
@@ -95,7 +95,7 @@
 
                 Me.Pattern = {
                     Email: "",
-                    Phone: ""
+                    Phone: "(\\+{0,1}(91){0,1}\\d{3}\\-{0,1}\d{3}\\-{0,1}\\d{4}){1}"
                 }
 
                 Me.User = Me.UserObject();
@@ -149,53 +149,3 @@
 </html>
 
 
-
-<!--ToDo.Reset = function (){
-                ToDo.User = '';
-                ToDo.Activity = '';
-            }
-
-            ToDo.AddUserActivity = function(){
-                var User = ToDo.AddUser(ToDo.User);
-                var response  = ToDo.AddItem(User, ToDo.Activity);
-                ToDo.Reset();
-            }
-
-            ToDo.AddUser = function(user){
-
-                var result = ToDo.UserActivity.find(function(obj){
-                    if(obj.User == user ) {
-                        return obj;
-                    }
-                });
-
-                if(result == undefined){
-                    var index = ToDo.UserActivity.push({
-                        User:user,
-                        Activity:[]
-                    });
-                    return ToDo.UserActivity[index - 1];
-                }
-                else{
-                    return result;
-                }
-
-            }
-
-            ToDo.AddItem = function(user, activity){
-                var result = user.Activity.find(function(obj){
-                    if(obj.ActivityName == activity ) {
-                        return obj;
-                    }
-                });
-
-                if(result == undefined){
-                    var index = user.Activity.push({
-                        ActivityName:activity
-                    });
-                    return user.Activity[index - 1].ActivityName;
-                }
-                else{
-                    return null;
-                }
-            }-->
