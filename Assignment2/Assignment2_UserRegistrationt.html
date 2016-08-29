@@ -6,78 +6,68 @@
 
     <title>AngularJs - Assignment Two -  User Registration</title>
 
-    <style type="text/css">
-        table {
-            clear: both;
-            width: 60%;
-        }
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-        .User {
-            clear: both;
-            width: 30%;
-        }
 
-        .Activity {
-            clear: both;
-            width: 60%;
-        }
-
-        .border {
-            border: solid;
-            border-width: thin;
-        }
-    </style>
-
+	
 </head>
 
 <body ng-controller='UserMgmtCtrl as UM'>
 
-    <h1>User Registration & Login Application</h1>
-
     <form name="frmRegistration">
 
-        <h3>{{UM.Title.Registration}}</h3>
+        <h3 class="well">{{UM.Title.Registration}}</h3>
 
-        <table>
-            <tr>
-                <th>
-                    {{UM.User.Name.Label}}
-                </th>
-                <td>
-                    <input type="text" ng-model="UM.User.Name.Value" ng-required="UM.User.Name.IsRequired" name="Name" placeholder="{{UM.User.Name.PlaceHolder}}" />
-                </td>
-            </tr>
-            <tr>
+        <table class="table table-inverse table-bordered">
+			<tr>
+				<th class="">
+					{{UM.User.Name.Label}}
+				</th>
+				<td class="">
+					<input type="text" ng-model="UM.User.Name.Value" ng-required="UM.User.Name.IsRequired" 
+					name="Name" placeholder="{{UM.User.Name.PlaceHolder}}" />&nbsp;<span class="error"
+					ng-show="frmRegistration.Name.$invalid && frmRegistration.Name.$dirty">Enter Valid Information</span>
+				</td>
+			</tr>
+			<tr>
                 <th>
                     {{UM.User.Phone.Label}}
                 </th>
                 <td>
-                    <input type="text" ng-model="UM.User.Phone.Value" ng-required="UM.User.Phone.IsRequired" ng-pattern="UM.Pattern.Phone" name="Phone" placeholder="{{UM.User.Phone.PlaceHolder}}" />
+                    <input type="text" ng-model="UM.User.Phone.Value" ng-required="UM.User.Phone.IsRequired && frmRegistration.Email.$invalid" ng-pattern="UM.Pattern.Phone" 
+					name="Phone" placeholder="{{UM.User.Phone.PlaceHolder}}" />&nbsp;<span  class="error"
+					ng-show="frmRegistration.Phone.$invalid && frmRegistration.Phone.$dirty">Enter Valid Information</span>
                 </td>
             </tr>
-            <tr>
+			<tr>
                 <th>
                     {{UM.User.Email.Label}}
                 </th>
                 <td>
-                    <input type="email" ng-model="UM.User.Email.Value" ng-required="UM.User.Email.IsRequired" ng-pattern="UM.Pattern.Email" name="Email" placeholder="{{UM.User.Email.PlaceHolder}}" />
+                    <input type="email" ng-model="UM.User.Email.Value" ng-required="UM.User.Email.IsRequired" ng-pattern="UM.Pattern.Email" 
+					name="Email" placeholder="{{UM.User.Email.PlaceHolder}}" />&nbsp;<span class="error"
+					ng-show="frmRegistration.Email.$invalid && frmRegistration.Email.$dirty">Enter Valid Information</span>
                 </td>
             </tr>
-            <tr>
+		<tr>
                 <th>
                     {{UM.User.Password.Label}}
                 </th>
                 <td>
-                    <input type="password" ng-model="UM.User.Password.Value" ng-required="UM.User.Password.IsRequired" name="Password" placeholder="{{UM.User.Password.PlaceHolder}}" />
+                    <input type="password" ng-model="UM.User.Password.Value" ng-required="UM.User.Password.IsRequired" name="Password" 
+					placeholder="{{UM.User.Password.PlaceHolder}}" />&nbsp;<span class="error"
+					ng-show="frmRegistration.Password.$invalid && frmRegistration.Password.$dirty">Enter Valid Information</span>
                 </td>
-            </tr>
+            </tr> 
         </table>
 
-        <input type="submit" name="Register" value="Register User"  />
+        <input type="submit" name="Register" value="Register User" ng-click="frmRegistration.$valid && UM.Register()"  />
 		
     </form>
 
     <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+	
     <script type="text/javascript">
 
         var appModule = angular.module('app', []);
@@ -89,12 +79,12 @@
 
                 Me.Title = {
                     Login: "Login",
-                    Registration: "Registration"
+                    Registration: "Register User"
                 };
 
                 Me.Pattern = {
                     Email: "",
-                    Phone: "(\\+{0,1}(91){0,1}\\d{3}\\-{0,1}\d{3}\\-{0,1}\\d{4}){1}"
+                    Phone: /^(\+{0,1}(91){0,1}\d{3}\-{0,1}\d{3}\-{0,1}\d{4}){1}$/
                 }
 
                 Me.User = Me.UserObject();
@@ -103,6 +93,10 @@
 
             }
 
+			Me.Register = function(){
+			alert('Registered')
+			}
+			
             Me.UserObject = function () {
                 var obj = {
                     Name: {
@@ -141,7 +135,6 @@
         }])
 
     </script>
-
 
 </body>
 
