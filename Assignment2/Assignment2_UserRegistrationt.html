@@ -6,68 +6,160 @@
 
     <title>AngularJs - Assignment Two -  User Registration</title>
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-
-	
 </head>
 
 <body ng-controller='UserMgmtCtrl as UM'>
 
     <form name="frmRegistration">
 
-        <h3 class="well">{{UM.Title.Registration}}</h3>
+        <div ng-show="UM.Status == UM.StatusList.Home">
+            <h3 class="well">{{UM.Title.Registration}}</h3>
 
-        <table class="table table-inverse table-bordered">
-			<tr>
-				<th class="">
-					{{UM.User.Name.Label}}
-				</th>
-				<td class="">
-					<input type="text" ng-model="UM.User.Name.Value" ng-required="UM.User.Name.IsRequired" 
-					name="Name" placeholder="{{UM.User.Name.PlaceHolder}}" />&nbsp;<span class="error"
-					ng-show="frmRegistration.Name.$invalid && frmRegistration.Name.$dirty">Enter Valid Information</span>
-				</td>
-			</tr>
-			<tr>
-                <th>
-                    {{UM.User.Phone.Label}}
-                </th>
-                <td>
-                    <input type="text" ng-model="UM.User.Phone.Value" ng-required="UM.User.Phone.IsRequired && frmRegistration.Email.$invalid" ng-pattern="UM.Pattern.Phone" 
-					name="Phone" placeholder="{{UM.User.Phone.PlaceHolder}}" />&nbsp;<span  class="error"
-					ng-show="frmRegistration.Phone.$invalid && frmRegistration.Phone.$dirty">Enter Valid Information</span>
-                </td>
-            </tr>
-			<tr>
-                <th>
-                    {{UM.User.Email.Label}}
-                </th>
-                <td>
-                    <input type="email" ng-model="UM.User.Email.Value" ng-required="UM.User.Email.IsRequired" ng-pattern="UM.Pattern.Email" 
-					name="Email" placeholder="{{UM.User.Email.PlaceHolder}}" />&nbsp;<span class="error"
-					ng-show="frmRegistration.Email.$invalid && frmRegistration.Email.$dirty">Enter Valid Information</span>
-                </td>
-            </tr>
-		<tr>
-                <th>
-                    {{UM.User.Password.Label}}
-                </th>
-                <td>
-                    <input type="password" ng-model="UM.User.Password.Value" ng-required="UM.User.Password.IsRequired" name="Password" 
-					placeholder="{{UM.User.Password.PlaceHolder}}" />&nbsp;<span class="error"
-					ng-show="frmRegistration.Password.$invalid && frmRegistration.Password.$dirty">Enter Valid Information</span>
-                </td>
-            </tr> 
-        </table>
+            <table class="table table-inverse table-bordered">
+                <tr>
+                    <th class="">
+                        {{UM.User.Name.Label}}
+                    </th>
+                    <td class="">
+                        <input type="text" ng-model="UM.User.Name.Value" ng-required="UM.User.Name.IsRequired"
+                               name="Name" placeholder="{{UM.User.Name.PlaceHolder}}" />&nbsp;<span class="error"
+                                                                                                    ng-show="frmRegistration.Name.$invalid && frmRegistration.Name.$dirty">Enter Valid Information</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{UM.User.Phone.Label}}
+                    </th>
+                    <td>
+                        <input type="text" ng-model="UM.User.Phone.Value" ng-required="UM.User.Phone.IsRequired && frmRegistration.Email.$invalid" ng-pattern="UM.Pattern.Phone"
+                               name="Phone" placeholder="{{UM.User.Phone.PlaceHolder}}" />&nbsp;<span class="error"
+                                                                                                      ng-show="frmRegistration.Phone.$invalid && frmRegistration.Phone.$dirty">Enter Valid Information</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{UM.User.Email.Label}}
+                    </th>
+                    <td>
+                        <!--ng-change="UM.ValidateEmail(UM.User.Email.Value, this)"-->
+                        <input type="email" ng-model="UM.User.Email.Value" ng-required="UM.User.Email.IsRequired" ng-pattern="UM.Pattern.Email"
+                               name="Email" placeholder="{{UM.User.Email.PlaceHolder}}" />&nbsp;<span class="error"
+                                                                                                      ng-show="frmRegistration.Email.$invalid && frmRegistration.Email.$dirty">Enter Valid Information</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{UM.User.Password.Label}}
+                    </th>
+                    <td>
+                        <input type="password" ng-model="UM.User.Password.Value" ng-required="UM.User.Password.IsRequired" name="Password"
+                               placeholder="{{UM.User.Password.PlaceHolder}}" />&nbsp;<span class="error"
+                                                                                            ng-show="frmRegistration.Password.$invalid && frmRegistration.Password.$dirty">Enter Valid Information</span>
+                    </td>
+                </tr>
+            </table>
 
-        <input type="submit" name="Register" value="Register User" ng-click="frmRegistration.$valid && UM.Register()"  />
-		
+            <input type="submit" name="Register" value="Register User" ng-disabled="!frmRegistration.$valid" class="btn btn-primary" data-toggle="modal" data-target="#myModal" />
+
+            <!--ng-click="frmRegistration.$valid && UM.ValidateEmail(UM.User.Email.Value, frmRegistration.Email)"-->
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Confirm Registration</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <p>{{UM.User.Name.Label}}  &nbsp; : &nbsp;  {{UM.User.Name.Value}}</p>
+                            </div>
+                            <div>
+                                <p>{{UM.User.Phone.Label}}  &nbsp; : &nbsp;  {{UM.User.Phone.Value}}</p>
+                            </div>
+                            <div>
+                                <p>{{UM.User.Email.Label}}  &nbsp; : &nbsp;  {{UM.User.Email.Value}}</p>
+                            </div>
+                            <div>
+                                <p>{{UM.User.Password.Label}}  &nbsp; : &nbsp;  {{UM.User.Password.Value}}</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" name="Register" value="Register User" ng-click="frmRegistration.$valid && UM.Register(UM.User)" class="btn btn-warning" data-dismiss="modal" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </form>
 
+    <form name="frmLogin">
+        <div ng-show="UM.Status == UM.StatusList.Home">
+
+            <h3 class="well">{{UM.Title.Login}}</h3>
+
+            <table class="table table-inverse table-bordered">
+                <tr>
+                    <th class="">
+                        Email
+                    </th>
+                    <td class="">
+                        <input type="text" ng-model="UM.Login.Email" ng-required="true"
+                               name="Email" placeholder="Email Address" />&nbsp;<span class="error"
+                                                                                      ng-show="frmLogin.Email.$invalid && frmLogin.Email.$dirty">Enter Valid Information</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="">
+                        Password
+                    </th>
+                    <td class="">
+                        <input type="text" ng-model="UM.Login.Password" ng-required="true"
+                               name="Email" placeholder="Password" />&nbsp;<span class="error"
+                                                                                 ng-show="frmLogin.Password.$invalid && frmLogin.Password.$dirty">Enter Valid Information</span>
+                    </td>
+                </tr>
+
+            </table>
+
+            <input type="submit" name="Login" value="Login" ng-disabled="!frmLogin.$valid" ng-click="frmLogin.$valid && UM.Login()" class="btn btn-primary" />
+
+        </div>
+    </form>
+
+    <form name="frmLoggedIn">
+        <div ng-show="UM.Status == UM.StatusList.LoggedIn">
+
+            <div class="well">
+                <span>Welcome {{UM.LoggedInUser.Name.Value}}</span>&nbsp;&nbsp;&nbsp;<span><a href="#" ng-click="UM.Logout()">(Logout?)</a></span>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <p>{{UM.LoggedInUser.Name.Label}}  &nbsp; : &nbsp;  {{UM.LoggedInUser.Name.Value}}</p>
+                </div>
+                <div>
+                    <p>{{UM.LoggedInUser.Phone.Label}}  &nbsp; : &nbsp;  {{UM.LoggedInUser.Phone.Value}}</p>
+                </div>
+                <div>
+                    <p>{{UM.LoggedInUser.Email.Label}}  &nbsp; : &nbsp;  {{UM.LoggedInUser.Email.Value}}</p>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <!-- Modal -->
+
+
     <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
-	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <script type="text/javascript">
 
         var appModule = angular.module('app', []);
@@ -82,6 +174,12 @@
                     Registration: "Register User"
                 };
 
+                Me.StatusList = {
+                    Home: "Home",
+                    ConfirmRegistration: "ConfirmRegistration",
+                    LoggedIn: "LoggedIn"
+                };
+
                 Me.Pattern = {
                     Email: "",
                     Phone: /^(\+{0,1}(91){0,1}\d{3}\-{0,1}\d{3}\-{0,1}\d{4}){1}$/
@@ -89,14 +187,51 @@
 
                 Me.User = Me.UserObject();
                 Me.Users = [];
+                Me.Login = {
+                    Email: null,
+                    Password: null
+                };
                 Me.LoggedInUser = null;
+                Me.Status = Me.StatusList.Home;
+            }
+
+            Me.Login = function () {
 
             }
 
-			Me.Register = function(){
-			alert('Registered')
-			}
-			
+            Me.Logout = function () {
+                Me.LoggedInUser = null;
+                Me.Status = Me.StatusList.Home;
+            }
+
+            Me.Register = function (user) {
+                if (Me.ValidateEmail(user.Email.Value)) {
+                    Me.Users.push(user);
+                    Me.User = Me.UserObject();
+
+                    if (!confirm("Do you want to add one more user ?")) {
+                        Me.LoggedInUser = user;
+                        Me.Status = Me.StatusList.LoggedIn;
+                    }
+                }
+            }
+
+            Me.ValidateEmail = function (Email) {
+                var result = Me.Users.find(function (obj) {
+                    if (obj.Email.Value.toLowerCase() == Email.toLowerCase()) {
+                        return obj;
+                    }
+                });
+
+                if (result != undefined || result != null) {
+                    alert('The Email address already Exist. Please use a new one');
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+
             Me.UserObject = function () {
                 var obj = {
                     Name: {
@@ -139,5 +274,3 @@
 </body>
 
 </html>
-
-
