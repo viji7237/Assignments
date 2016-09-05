@@ -126,7 +126,7 @@
 
             </table>
 
-            <input type="submit" name="Login" value="Login" ng-disabled="!frmLogin.$valid" ng-click="frmLogin.$valid && UM.Login()" class="btn btn-primary" />
+            <input type="submit" name="Login" value="Login" ng-disabled="!frmLogin.$valid" ng-click="frmLogin.$valid && UM.LoginUser()" class="btn btn-primary" />
 
         </div>
     </form>
@@ -195,8 +195,19 @@
                 Me.Status = Me.StatusList.Home;
             }
 
-            Me.Login = function () {
+            Me.LoginUser = function () {
+                var result = Me.Users.find(function (obj) {
+                    if (obj.Email.Value.toLowerCase() == Me.Login.Email.toLowerCase() && obj.Password.Value == Me.Login.Password)  {
+                        return obj;
+                    }
+                });
 
+                if (result == undefined) {
+                    alert("Please provide valid user information to login.")
+                } else {
+                    Me.LoggedInUser = result;
+                    Me.Status = Me.StatusList.LoggedIn;
+                }
             }
 
             Me.Logout = function () {
