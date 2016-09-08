@@ -15,6 +15,15 @@
 
     <h2 class="well">{{constant.Title}}</h2>
 
+    <div class="container">
+        <h4>List of Filter Implemented in this Application.</h4>
+        <b><span ng-repeat="item in constant.FilterList">{{item}} <span ng-show="!$last">, </span><span ng-show="$last">.</span></span></b>
+    </div>
+
+    <div class="section">
+
+    </div>
+
     <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
 
     <script type="text/javascript">
@@ -107,12 +116,12 @@
             $scope.CreateInstance = function () {
                 return {
                     itemType: "",
-                    description:"",
+                    description: "",
                     properties: {
                         id: null,
                         name: null,
                         price: null,
-                        rating:null
+                        rating: null
                     }
                 }
             }
