@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app='app'>
+
+<head>
+
+    <title>AngularJs - Assignment Two -  Filters</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body ng-controller="FilterCtrl">
+
+    <h2 class="well">{{constant.Title}}</h2>
+
+    <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+
+    <script type="text/javascript">
+
+        var appModule = angular.module('app', []);
+
+        appModule.controller('FilterCtrl', function ($scope) {
+
+            $scope.init = function () {
+
+                $scope.constant = {
+                    Title: "Working with Filters",
+                    FilterList: [
+                        "Formatting",
+                        "Sorting",
+                        "Filtering",
+                        "Custom Filter"
+                    ]
+                };
+
+                $scope.data = $scope.DefaultData();
+            }
+
+            $scope.DefaultData = function () {
+                var products = [];
+
+                var product1 = $scope.CreateInstance();
+                product1.itemType = "Console";
+                product1.description = "Gaming Consoles";
+                product1.properties.id = $scope.CreateProperty("Number", true, 1);
+                product1.properties.name = $scope.CreateProperty("String", true, "Playstation2");
+                product1.properties.price = $scope.CreateProperty("Currency", true, 129);
+                product1.properties.rating = $scope.CreateProperty("Number", true, 3);
+                product1.properties.brand = $scope.CreateProperty("String", true, "Sony");
+                products.push(product1);
+
+                var product2 = $scope.CreateInstance();
+                product2.itemType = "Console";
+                product2.description = "Gaming Consoles";
+                product2.properties.id = $scope.CreateProperty("Number", true, 2);
+                product2.properties.name = $scope.CreateProperty("String", true, "Playstation3");
+                product2.properties.price = $scope.CreateProperty("Currency", true, 240);
+                product2.properties.rating = $scope.CreateProperty("Number", true, 4);
+                product2.properties.brand = $scope.CreateProperty("String", true, "Sony");
+                products.push(product2);
+
+                var product3 = $scope.CreateInstance();
+                product3.itemType = "Console";
+                product3.description = "Gaming Consoles";
+                product3.properties.id = $scope.CreateProperty("Number", true, 3);
+                product3.properties.name = $scope.CreateProperty("String", true, "Playstation4");
+                product3.properties.price = $scope.CreateProperty("Currency", true, 366);
+                product3.properties.rating = $scope.CreateProperty("Number", true, 4.5);
+                product3.properties.brand = $scope.CreateProperty("String", true, "Sony");
+                products.push(product3);
+
+                var product4 = $scope.CreateInstance();
+                product4.itemType = "Console";
+                product4.description = "Gaming Consoles";
+                product4.properties.id = $scope.CreateProperty("Number", true, 4);
+                product4.properties.name = $scope.CreateProperty("String", true, "XBox One");
+                product4.properties.price = $scope.CreateProperty("Currency", true, 319);
+                product4.properties.rating = $scope.CreateProperty("Number", true, 4.2);
+                product4.properties.brand = $scope.CreateProperty("String", true, "Microsoft");
+                products.push(product4);
+
+                var product5 = $scope.CreateInstance();
+                product5.itemType = "Console";
+                product5.description = "Gaming Consoles";
+                product5.properties.id = $scope.CreateProperty("Number", true, 6);
+                product5.properties.name = $scope.CreateProperty("String", true, "XBox 360");
+                product5.properties.price = $scope.CreateProperty("Currency", true, 141);
+                product5.properties.rating = $scope.CreateProperty("Number", true, 3.8);
+                product5.properties.brand = $scope.CreateProperty("String", true, "Microsoft");
+                products.push(product5);
+
+                var product6 = $scope.CreateInstance();
+                product6.itemType = "Camera";
+                product6.description = "DIgital Cameras";
+                product6.properties.id = $scope.CreateProperty("Number", true, 5);
+                product6.properties.name = $scope.CreateProperty("String", true, "Nikon 5100");
+                product6.properties.price = $scope.CreateProperty("Currency", true, 510);
+                product6.properties.rating = $scope.CreateProperty("Number", true, 4.2);
+                product6.properties.brand = $scope.CreateProperty("String", true, "Nikon");
+                products.push(product6);
+
+                return products;
+            }
+
+            $scope.CreateInstance = function () {
+                return {
+                    itemType: "",
+                    description:"",
+                    properties: {
+                        id: null,
+                        name: null,
+                        price: null,
+                        rating:null
+                    }
+                }
+            }
+
+            $scope.CreateProperty = function (pType, pRequired, pValue) {
+                return {
+                    type: pType,
+                    required: pRequired,
+                    value: pValue
+                }
+            }
+
+            $scope.init();
+
+        });
+
+    </script>
+
+</body>
+
+</html>
