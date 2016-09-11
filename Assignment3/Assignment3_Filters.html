@@ -29,6 +29,10 @@
             <select ng-model="sortOrder">
                 <option ng-repeat="item in sortOrderData" value="{{item.value}}">{{item.key}}</option>
             </select>
+            &nbsp;&nbsp;&nbsp;
+            <b>Filter By : </b>&nbsp;
+            <b>Name : </b>&nbsp;<input type="text" ng-model="search.properties.name.value" />&nbsp;
+            <b>Item Type : </b>&nbsp;<input type="text" ng-model="search.itemType" />
         </div>
         <table class="table table-border">
             <tr>
@@ -39,14 +43,16 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Rating</th>
+                <th>Rating Desc</th>
             </tr>
-            <tr ng-repeat="product in data | orderBy:sortOrder+sort">
+            <tr ng-repeat="product in data | orderBy:sortOrder+sort | filter:search">
                 <td>{{product.properties.id.value}}</td>
                 <td>{{product.properties.name.value | uppercase}}</td>
                 <td>{{product.properties.brand.value}}</td>
                 <td>{{product.itemType}}</td>
                 <td>{{product.description}}</td>
-                <td>{{product.properties.price.value}}</td>
+                <td>{{product.properties.price.value | currency}}</td>
+                <td>{{product.properties.rating.value | number:2}}</td>
                 <td>{{product.properties.rating.value}}</td>
             </tr>
         </table>
@@ -74,8 +80,8 @@
 
                 $scope.sortData = [
                     { key: 'ID', value: 'properties.id.value' },
-                    { key: 'Name', value: 'itemType' },
-                    { key: 'Item Type', value: 'properties.id.value' },
+                    { key: 'Name', value: 'properties.name.value' },
+                    { key: 'Item Type', value: 'itemType' },
                     { key: 'Price', value: 'properties.price.value' },
                     { key: 'Rating', value: 'properties.rating.value' },
                     { key: 'Brand', value: 'properties.brand.value' },
