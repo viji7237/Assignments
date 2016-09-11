@@ -19,9 +19,37 @@
         <h4>List of Filter Implemented in this Application.</h4>
         <b><span ng-repeat="item in constant.FilterList">{{item}} <span ng-show="!$last">, </span><span ng-show="$last">.</span></span></b>
     </div>
-
-    <div class="section">
-
+    <br /><br /><br />
+    <div class="container well">
+        <div style="float:right">
+            <b>Sort By:</b>&nbsp;
+            <select ng-model="sort">
+                <option ng-repeat="item in sortData" value="{{item.value}}">{{item.key}}</option>
+            </select>
+            <select ng-model="sortOrder">
+                <option ng-repeat="item in sortOrderData" value="{{item.value}}">{{item.key}}</option>
+            </select>
+        </div>
+        <table class="table table-border">
+            <tr>
+                <th>Item ID</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Item Type</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Rating</th>
+            </tr>
+            <tr ng-repeat="product in data | orderBy:sortOrder+sort">
+                <td>{{product.properties.id.value}}</td>
+                <td>{{product.properties.name.value | uppercase}}</td>
+                <td>{{product.properties.brand.value}}</td>
+                <td>{{product.itemType}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.properties.price.value}}</td>
+                <td>{{product.properties.rating.value}}</td>
+            </tr>
+        </table>
     </div>
 
     <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
@@ -43,6 +71,23 @@
                         "Custom Filter"
                     ]
                 };
+
+                $scope.sortData = [
+                    { key: 'ID', value: 'properties.id.value' },
+                    { key: 'Name', value: 'itemType' },
+                    { key: 'Item Type', value: 'properties.id.value' },
+                    { key: 'Price', value: 'properties.price.value' },
+                    { key: 'Rating', value: 'properties.rating.value' },
+                    { key: 'Brand', value: 'properties.brand.value' },
+                ];
+
+                $scope.sortOrderData = [
+                   { key: 'Asc', value: '+' },
+                   { key: 'Desc', value: '-' }
+                ];
+
+                $scope.sort = 'properties.id.value';
+                $scope.sortOrder = '+';
 
                 $scope.data = $scope.DefaultData();
             }
