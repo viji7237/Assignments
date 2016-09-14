@@ -35,7 +35,7 @@
             <b>Item Type : </b>&nbsp;<input type="text" ng-model="search.itemType" />
         </div>
         <table class="table table-border">
-            <tr>
+            <tr ng-if="filteredData.length > 0">
                 <th>Item ID</th>
                 <th>Name</th>
                 <th>Brand</th>
@@ -45,7 +45,7 @@
                 <th>Rating</th>
                 <th>Rating Desc</th>
             </tr>
-            <tr ng-repeat="product in data | orderBy:sortOrder+sort | filter:search">
+            <tr ng-repeat="product in filteredData = (data | filter:search ) | orderBy:sortOrder+sort ">
                 <td>{{product.properties.id.value}}</td>
                 <td>{{product.properties.name.value | uppercase}}</td>
                 <td>{{product.properties.brand.value}}</td>
@@ -53,7 +53,12 @@
                 <td>{{product.description}}</td>
                 <td>{{product.properties.price.value | currency}}</td>
                 <td>{{product.properties.rating.value | number:2}}</td>
-                <td>{{product.properties.rating.value}}</td>
+                <td>{{product.properties.rating.value | RatingText}}</td>
+            </tr>
+            <tr>
+                <td colspan="8" ng-if="filteredData.length === 0">
+                    No Matching Items Found.
+                </td>
             </tr>
         </table>
     </div>
@@ -187,6 +192,27 @@
 
             $scope.init();
 
+        });
+
+        appModule.filter("RatingText", function () {
+            return function (input) {
+
+                if (input > 4.5) {
+                    return 'Excellent';
+                }
+                else if (input > 4) {
+                    return 'Very Good';
+                }
+                else if (input > 3.5) {
+                    return 'good';
+                }
+                else if (input > 3) {
+                    return 'Medium';
+                }
+                else {
+                    return 'Bad';
+                }
+            }
         });
 
     </script>
