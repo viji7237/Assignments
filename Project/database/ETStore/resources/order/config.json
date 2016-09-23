@@ -1,0 +1,45 @@
+{
+	"type": "Collection",
+	"properties": {
+		"UserID": {
+			"name": "UserID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "UserID",
+			"order": 0
+		},
+		"TemplateID": {
+			"name": "TemplateID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "TemplateID",
+			"order": 1
+		},
+		"Price": {
+			"name": "Price",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "Price",
+			"order": 2
+		},
+		"PurchasedDate": {
+			"name": "PurchasedDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "PurchasedDate",
+			"order": 3
+		},
+		"Template": {
+			"name": "Template",
+			"type": "object",
+			"typeLabel": "object",
+			"required": true,
+			"id": "Template",
+			"order": 4
+		}
+	}
+}

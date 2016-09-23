@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app='app'>
+<head>
+    <title>E-Template Store</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://bootswatch.com/cyborg/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body ng-controller="cdc">
+
+	<div my-first-cd name="user1" class="well container" style="display:block;"></div>
+	<div my-first-cd name="user2" class="well container"></div>
+   
+    <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+    <script type="text/javascript">
+        var appModule = angular.module('app', []);
+        
+        appModule.directive('myFirstCd',function(){
+
+        	var   obj = {};
+        	obj.scope = {
+        		user:"=name"
+        	};
+        	obj.template="<div class='label label-primary large'>{{user.name1}}</div>";
+	        
+        	obj.link = function ($scope, element, attribute) {
+
+        	};
+
+	        return obj;
+        });
+
+        appModule.controller('cdc',function($scope){
+        	$scope.user1 = {
+        		name1 : "Test User First 1",
+        		email:"test.1@mail.com"
+        	}
+
+        	$scope.user2 = {
+        		name1 : "Test User 2",
+        		email:"test.1@mail.com"
+        	}
+        });
+
+    </script>
+</body>
+</html>

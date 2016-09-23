@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"UserID": {
+			"name": "UserID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "UserID",
+			"order": 0
+		},
+		"TemplateID": {
+			"name": "TemplateID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "TemplateID",
+			"order": 1
+		},
+		"CreatedDate": {
+			"name": "CreatedDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "CreatedDate",
+			"order": 2
+		},
+		"Template": {
+			"name": "Template",
+			"type": "object",
+			"typeLabel": "object",
+			"required": true,
+			"id": "Template",
+			"order": 3
+		}
+	}
+}
