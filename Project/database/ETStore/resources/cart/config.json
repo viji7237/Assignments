@@ -29,7 +29,7 @@
 			"name": "Template",
 			"type": "object",
 			"typeLabel": "object",
-			"required": true,
+			"required": false,
 			"id": "Template",
 			"order": 3
 		}
