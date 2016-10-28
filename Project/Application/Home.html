@@ -1,16 +1,41 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app='app'>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app='ETApp'>
 <head>
     <title>E-Template Store</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://bootswatch.com/cyborg/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://bootswatch.com/united/bootstrap.min.css" crossorigin="anonymous">
+
 </head>
-<body>
-   
+<body ng-controller="Home">
+
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <b><a class="navbar-brand" href="#">ET Store</a></b>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
-    <script type="text/javascript">
+    <script src="https://code.angularjs.org/1.5.8/angular-resource.js"></script>
+    <script src="https://code.angularjs.org/1.5.8/angular-cookies.js"></script>
+    <script src="./script/Service.js"></script>
+    <script src="./script/App.js"></script>
+    
+    <!--<script type="text/javascript">
         var appModule = angular.module('app', []);
-        
-    </script>
+
+    </script>-->
 </body>
 </html>
