@@ -4,28 +4,29 @@
     <title>E-Template Store</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://bootswatch.com/united/bootstrap.min.css" crossorigin="anonymous">
+    <style>
 
+.preview-panel { text-align: center; background-color: #f5f5f5; margin-bottom: 30px; border-radius: 4px; border-bottom: 3px solid #eeeeee; position: relative; max-width: 500px; margin-left: auto; margin-right: auto; }
+.preview-panel a img { border-top-right-radius: 4px; border-top-left-radius: 4px; border-left: 1px solid #f5f5f5; border-right: 1px solid #f5f5f5; }
+.preview-panel a:hover img { opacity: 0.8; }
+.preview-panel .preview-panel-content { padding: 30px 15px; }
+.preview-panel .preview-panel-content h4 { margin: 0; font-size: 20px; line-height: 20px; }
+.preview-panel .preview-panel-content p { margin: 15px 0; }
+.preview-panel .preview-panel-content .btn { font-size: 11px; border-color: #eeeeee; }
+.preview-panel .preview-panel-content .btn:hover { border-color: #d5d5d5; }
+.badge-new { color: black; font-size: 14px; line-height: 28px; top: -6px; right: -10px; font-family: 'Patrick Hand SC'; position: absolute; height: 32px; width: 32px; background: #FCD670; border-bottom: 2px solid #fac125; border-radius: 100%; -ms-transform: rotate(-12deg); /* IE 9 */ -webkit-transform: rotate(-12deg); /* Chrome, Safari, Opera */ transform: rotate(-12deg); text-transform: none; }
+
+
+
+    </style>
 </head>
 <body ng-controller="Home">
+   
+    <page-menu></page-menu>
 
-
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <b><a class="navbar-brand" href="#">ET Store</a></b>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="well container">
+        <template-list templates="Items" ></template-list>
+    </div>
 
     <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.5.8/angular-resource.js"></script>

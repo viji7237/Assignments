@@ -48,6 +48,14 @@
 			"required": true,
 			"id": "CreatedDate",
 			"order": 5
+		},
+		"IsNew": {
+			"name": "IsNew",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "IsNew",
+			"order": 6
 		}
 	}
 }

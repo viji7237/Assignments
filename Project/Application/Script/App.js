@@ -1,6 +1,6 @@
 var app = angular.module("ETApp", ['ETServices','ngCookies']);
 
-app.controller("Home", function ($scope, $cookies, templateService, userService) {
+app.controller("Home", function ($scope, $cookies, templateService) {
 
     function init() {
         $scope.Constant = {
@@ -8,35 +8,41 @@ app.controller("Home", function ($scope, $cookies, templateService, userService)
             Description: "Purchase Template Page"
         }
 
-        var testdata = $cookies.get('test');
+        $scope.Items = [];
 
-        templateService.getTemplateById('1fdef11624d249c7',
+        templateService.getAllTemplates(
         	function(data)
 	    	{
+	    		$scope.Items = data;
 	    		console.log(data);
 	        },
 	        function(failed)
 	        {
 	        	console.log(failed);
 	        });
-
-       /* templateService.getAllTemplates(
-	    	function(data)
-	    	{
-	        	console.log("Successful Data : " +data);
-	        },
-	        function(failed)
-	        {
-	        	console.log("Failure Data : " + failed);
-	        }
-        );
-		*/
-
-
-
-
     }
 
     init();
 
 });
+
+app.directive('templateList',
+	function()
+	{
+		var   obj = {};
+        obj.scope = {
+        	items:"=templates"
+    	};
+        obj.templateUrl="HtmlTemplate/TemplateList.html";
+	    obj.link = function ($scope, element, attribute) {};
+		return obj;
+    });
+
+app.directive('pageMenu',
+	function()
+	{
+		var   obj = {};
+        obj.templateUrl="HtmlTemplate/Menu.html";
+	    obj.link = function ($scope, element, attribute) {};
+		return obj;
+    });
