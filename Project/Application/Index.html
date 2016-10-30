@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app='ETApp'>
+<head>
+    <title>E-Template Store</title>
+    <base href="/">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://bootswatch.com/united/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="./Style/main.css" crossorigin="anonymous">
+
+</head>
+<body ng-controller="HomeCtrl">
+
+    <page-menu></page-menu>
+
+    <div class="well container" style="min-height:600px" ng-view></div>
+
+    <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.8/angular-resource.js"></script>
+    <script src="https://code.angularjs.org/1.5.8/angular-cookies.js"></script>
+    <script src="https://code.angularjs.org/1.5.8/angular-route.js"></script>
+
+    <script type="text/javascript">
+        angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
+    </script>
+
+    <script src="./script/Service.js"></script>
+    <script src="./script/App.js"></script>
+    <script src="./script/Controllers.js"></script>
+    <script src="./script/Directives.js"></script>
+
+</body>
+</html>

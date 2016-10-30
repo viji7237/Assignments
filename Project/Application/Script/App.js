@@ -1,48 +1,41 @@
-var app = angular.module("ETApp", ['ETServices','ngCookies']);
 
-app.controller("Home", function ($scope, $cookies, templateService) {
+var app = angular.module("ETApp", ['ETServices', 'ngCookies', 'ngRoute']);
 
-    function init() {
-        $scope.Constant = {
-            Title: "Home Page",
-            Description: "Purchase Template Page"
+app.config(function ($routeProvider, $locationProvider) {
+
+    $locationProvider.html5Mode(true);
+
+    $routeProvider.when('/',
+        {
+            templateUrl: 'home.html',
+            controller: 'HomeCtrl'
         }
-
-        $scope.Items = [];
-
-        templateService.getAllTemplates(
-        	function(data)
-	    	{
-	    		$scope.Items = data;
-	    		console.log(data);
-	        },
-	        function(failed)
-	        {
-	        	console.log(failed);
-	        });
-    }
-
-    init();
-
+    ).when('/home',
+        {
+            templateUrl: 'home.html',
+            controller: 'HomeCtrl'
+        }
+    ).when('/templates',
+        {
+            templateUrl: 'templates.html',
+            controller: 'TemplateListCtrl'
+        }
+    ).when('/template/:id',
+        {
+            templateUrl: 'template.html',
+            controller: 'TemplateCtrl'
+        }
+    ).when('/contact',
+        {
+            templateUrl: 'ContactUs.html',
+            controller: 'ContactCtrl'
+        }
+    ).when('/about',
+        {
+            templateUrl: 'AboutUs.html',
+            controller: 'AboutCtrl'
+        }
+    );
 });
 
-app.directive('templateList',
-	function()
-	{
-		var   obj = {};
-        obj.scope = {
-        	items:"=templates"
-    	};
-        obj.templateUrl="HtmlTemplate/TemplateList.html";
-	    obj.link = function ($scope, element, attribute) {};
-		return obj;
-    });
 
-app.directive('pageMenu',
-	function()
-	{
-		var   obj = {};
-        obj.templateUrl="HtmlTemplate/Menu.html";
-	    obj.link = function ($scope, element, attribute) {};
-		return obj;
-    });

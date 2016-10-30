@@ -56,6 +56,14 @@
 			"required": false,
 			"id": "IsNew",
 			"order": 6
+		},
+		"FullDescription": {
+			"name": "FullDescription",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "FullDescription",
+			"order": 7
 		}
 	}
 }

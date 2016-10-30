@@ -1,0 +1,53 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div align="center">
+                <h2>
+                    {{item.Name}}
+                </h2>
+            </div>
+            <div class="overview-panel">
+                <a target="_blank" href="https://blackrockdigital.github.io/startbootstrap-new-age/">
+                    <img src="{{item.PreviewImageUrl}}" class="img-responsive" alt="Free Bootstrap App Landing Page Theme - Start Bootstrap">
+                </a>
+
+            </div>
+            <div class="download-links well " align="center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="{{item.PreviewUrl}}" class="btn btn-primary">
+                            <i class="fa fa-eye"></i> Live Preview
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{item.PreviewUrl}}" class="btn btn-primary">
+                            <i class="fa fa-eye"></i>Add To Cart
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-success">
+                <h3>Description:</h3>
+                <p>{{item.FullDescription}}</p>
+            </div>
+            <div class="alert alert-dismissible alert-success">
+                <h3>Features:</h3>
+                <ul>
+                    <li>Fully responsive</li>
+                    <li>Easy to use HTML5/CSS Device mockups, just drop in content, no Photoshop or image editing necessary!</li>
+                    <li>Custom fixed navigation menu with scrolling animations</li>
+                    <li>LESS files included for deeper customization options</li>
+                    <li>Semantic markup with nav, sections, and asides</li>
+                    <li>Custom button style</li>
+                    <li>CSS gradient with texture overlay in the header</li>
+                    <li>Bold, colorful, stylish design</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

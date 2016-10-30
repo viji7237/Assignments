@@ -1,13 +1,13 @@
 <div class="row">
-	<div ng-repeat="item in items" class="col-md-4 col-sm-6" >
+	<div ng-repeat="item in items" class="col-md-4 col-sm-3" >
 			<div class="preview-panel">
-				<a href="/template-overviews/item.id">
+				<a href="template/{{item.id}}">
 					<img src="{{item.PreviewImageUrl}}" alt="{{item.Name}}" style="width:300px;height:200px">
 				</a>
 				<div class="preview-panel-content">
 					<h4>{{item.Name}}</h4>
 					<p>An app landing page theme for template {{item.Name}}.</p>
-					<a href="/template-overviews/item.id" class="btn btn-primary">Preview &amp; Download</a>
+					<a href="template/{{item.id}}" class="btn btn-primary">Preview &amp; Download</a>
 					<div class="badge-new" ng-show="item.IsNew">New!</div>
 				</div>
 			</div>
