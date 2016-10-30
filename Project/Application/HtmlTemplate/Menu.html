@@ -10,9 +10,9 @@
                     <li ng-class="{'active': active === 'About'}"><a href="about">About Us</a></li>
                     <li ng-class="{'active': active === 'Contact'}"><a href="contact">Contact Us</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Login</a></li>
-                </ul>
+                <ul class="nav navbar-nav navbar-right" login-register ng-show="!IsUserLoggedIn"></ul>
+                <ul class="nav navbar-nav navbar-right" loggedin-user ng-show="IsUserLoggedIn"></ul>
+
             </div>
         </div>
     </nav>

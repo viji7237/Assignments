@@ -28,3 +28,22 @@ app.directive('pageMenu',
 	    };
 	    return obj;
 	});
+
+app.directive('loginRegister', function (DataManagementService) {
+    var obj = {};
+    obj.templateUrl = "HtmlTemplate/Login.html";
+    obj.link = function ($scope, element, attribute) {
+
+    };
+    return obj;
+});
+
+
+app.directive('loggedinUser', function (DataManagementService) {
+    var obj = {};
+    obj.templateUrl = "HtmlTemplate/LoggedIn.html";
+    obj.link = function ($scope, element, attribute) {
+
+    };
+    return obj;
+});

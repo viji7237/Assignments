@@ -24,40 +24,54 @@ serviceModule.factory("templateService",
 	});
 
 // User Service Defenitions
-serviceModule.factory("userService", ["DataManagementService",
-	function ($resource, userApi, DataManagementService) {
-	    var resource = $resource(userApi);
+serviceModule.factory("userService",
+    function ($resource, userApi, DataManagementService) {
+        var resource = $resource(userApi, null, {
+            'get': {
+                method: 'GET',
+                isArray: true
+            }
+        });;
 
-	    return {
-	        Register: function (user, success, failure) {
-	            var callbackSuccess = function (user, success, failure) {
-	                DataManagementService.Login(user, success, failure);
-	            }
-	            resource.$save(user, callbackSuccess, failure);
-	        },
-	        Update: function (user, success, failure) {
-	            var callbackSuccess = function (user, success, failure) {
-	                DataManagementService.Login(user, success, failure);
-	            }
-	            resource.$save(user, callbackSuccess, failure);
-	        },
-	        Login: function (email, password, success, failure) {
-	            var callbackSuccess = function (user, success, failure) {
-	                DataManagementService.Login(user, success, failure);
-	            }
-	            resource.get({ email: encodeURIComponent(email), password: password }, callbackSuccess, failure);
-	        },
-	        Logout: function (success, failure) {
-	            DataManagementService.Logout(success, failure);
-	        },
-	        IsUserLoggedIn: function (success, failure) {
-	            DataManagementService.IsUserLoggedIn(success, failure);
-	        },
-	        VerifyEmail: function (email, success, failure) {
-	            resource.get({ email: encodeURIComponent(email), password: password }, success, failure);
-	        }
-	    };
-	}]);
+        return {
+            Register: function (user, success, failure) {
+                var callbackSuccess = function (user, success, failure) {
+                    DataManagementService.Login(user, success, failure);
+                }
+                resource.$save(user, callbackSuccess, failure);
+            },
+            Update: function (user, success, failure) {
+                var callbackSuccess = function (user, success, failure) {
+                    DataManagementService.Login(user, success, failure);
+                }
+                resource.$save(user, callbackSuccess, failure);
+            },
+            Login: function (email, password, success, failure) {
+                var callbackSuccess = function (user, success, failure) {
+                    DataManagementService.Login(user, success, failure);
+                }
+
+                resource.get({ Email: email, Password: password }, function (data) {
+                    if (data.length > 0) {
+                        DataManagementService.Login(data[0], success, failure);
+                    } else {
+                        failure("No Matching Data Found.");
+                    }
+
+                }, failure);
+
+            },
+            Logout: function (success, failure) {
+                DataManagementService.Logout(success, failure);
+            },
+            IsUserLoggedIn: function (success, failure) {
+                DataManagementService.IsUserLoggedIn(success, failure);
+            },
+            VerifyEmail: function (email, success, failure) {
+                resource.get({ Email: email, password: password }, success, failure);
+            }
+        };
+    });
 
 // Cart Service Defenitions
 serviceModule.factory("cartService",
@@ -135,7 +149,7 @@ serviceModule.factory("DataManagementService",
 	        IsUserLoggedIn: function (success, failure) {
 	            try {
 	                var loggedInUser = checkLoginData();
-	                success(loggedInUser != undefined);
+	                success(loggedInUser);
 	            }
 	            catch (err) {
 	                failure(err);
