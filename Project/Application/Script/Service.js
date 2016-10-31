@@ -30,21 +30,32 @@ serviceModule.factory("userService",
             'get': {
                 method: 'GET',
                 isArray: true
+            }, 'update': {
+                method: 'PUT', params: { id: '@id' }
             }
-        });;
+        });
 
         return {
             Register: function (user, success, failure) {
-                var callbackSuccess = function (user, success, failure) {
+                resource.save({
+                    Email: user.Email,
+                    Password: user.Password,
+                    Name: user.Name,
+                    CreatedDate: user.CreatedDate
+                }, function (user) {
                     DataManagementService.Login(user, success, failure);
-                }
-                resource.$save(user, callbackSuccess, failure);
+                }, failure);
             },
             Update: function (user, success, failure) {
-                var callbackSuccess = function (user, success, failure) {
+                resource.update({
+                    id: user.Id,
+                    Email: user.Email,
+                    Password: user.Password,
+                    Name: user.Name,
+                    CreatedDate: user.CreatedDate
+                }, function (user) {
                     DataManagementService.Login(user, success, failure);
-                }
-                resource.$save(user, callbackSuccess, failure);
+                }, failure);
             },
             Login: function (email, password, success, failure) {
                 var callbackSuccess = function (user, success, failure) {

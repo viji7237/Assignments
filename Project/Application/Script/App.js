@@ -15,6 +15,16 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'home.html',
             controller: 'HomeCtrl'
         }
+    ).when('/register',
+        {
+            templateUrl: 'register.html',
+            controller: 'RegisterCtrl'
+        }
+    ).when('/updateinfo',
+        {
+            templateUrl: 'UpdateUser.html',
+            controller: 'EditUserCtrl'
+        }
     ).when('/login',
         {
             templateUrl: 'login.html',
