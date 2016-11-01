@@ -64,6 +64,14 @@
 			"required": true,
 			"id": "FullDescription",
 			"order": 7
+		},
+		"DownloadUrl": {
+			"name": "DownloadUrl",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "DownloadUrl",
+			"order": 8
 		}
 	}
 }

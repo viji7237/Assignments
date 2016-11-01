@@ -1,0 +1,22 @@
+﻿
+<div align="center"><h3>Cart</h3></div>
+
+<div style="align-items:center" class="alert alert-dismissible alert-success bg-success">
+
+    <div class="row">
+        <div class="col-md-4" align="center"><b>Template Name</b></div>
+        <div class="col-md-4" align="center"><b>Price</b></div>
+        <div class="col-md-2" align="center"><b>Purchase</b></div>
+        <div class="col-md-2" align="center"><b>Cancel</b></div>
+        <div ng-repeat="item in CartItems">
+            <div class="col-md-4" align="center">{{item.template.Name}}</div>
+            <div class="col-md-4" align="center">{{item.template.Price | currency}}</div>
+            <div class="col-md-2" align="center"><button class="btn btn-sm btn-primary" ng-click="BuyItem(item)">Buy</button></div>
+            <div class="col-md-2" align="center"><button class="btn btn-sm btn-default" ng-click="CancelItem(item)">Cancel</button></div>
+        </div>
+    </div>
+
+
+
+</div>
+

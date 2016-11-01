@@ -20,7 +20,7 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'register.html',
             controller: 'RegisterCtrl'
         }
-    ).when('/updateinfo',
+    ).when('/userdata',
         {
             templateUrl: 'UpdateUser.html',
             controller: 'EditUserCtrl'
@@ -40,6 +40,11 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'template.html',
             controller: 'TemplateCtrl'
         }
+    ).when('/cart/:id',
+        {
+            templateUrl: 'cart.html',
+            controller: 'CartCtrl'
+        }
     ).when('/contact',
         {
             templateUrl: 'ContactUs.html',
@@ -50,7 +55,10 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'AboutUs.html',
             controller: 'AboutCtrl'
         }
-    );
+    ).otherwise({
+        redirect: '/index'
+    });;
+
 });
 
 

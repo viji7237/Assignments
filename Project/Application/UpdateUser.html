@@ -11,7 +11,7 @@
             <div class="col-md-3" align="center">{{item.template.Name}}</div>
             <div class="col-md-3" align="center">{{item.PurchasedDate}}</div>
             <div class="col-md-3" align="center">{{item.Price | currency}}</div>
-            <div class="col-md-3" align="center">{{item.OrderStatus}}</div>
+            <div class="col-md-3" align="center"><a class="btn btn-sm btn-primary" target="_parent" href="{{item.template.DownloadUrl}}">Download</a></div>
         </div>
     </div>
 </div>
@@ -27,8 +27,8 @@
         <div ng-repeat="item in User.cartitems">
             <div class="col-md-4" align="center">{{item.template.Name}}</div>
             <div class="col-md-4" align="center">{{item.template.Price | currency}}</div>
-            <div class="col-md-2" align="center"><button class="btn btn-sm btn-primary">Buy</button></div>
-            <div class="col-md-2" align="center"><button class="btn btn-sm btn-default">Cancel</button></div>
+            <div class="col-md-2" align="center"><button class="btn btn-sm btn-primary" ng-click="BuyItem(item)">Buy</button></div>
+            <div class="col-md-2" align="center"><button class="btn btn-sm btn-default" ng-click="CancelItem(item)">Cancel</button></div>
         </div>
     </div>
 

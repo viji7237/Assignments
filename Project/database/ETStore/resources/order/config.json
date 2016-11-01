@@ -19,8 +19,8 @@
 		},
 		"Price": {
 			"name": "Price",
-			"type": "number",
-			"typeLabel": "number",
+			"type": "string",
+			"typeLabel": "string",
 			"required": true,
 			"id": "Price",
 			"order": 2
@@ -48,6 +48,22 @@
 			"required": true,
 			"id": "OrderStatus",
 			"order": 5
+		},
+		"Name": {
+			"name": "Name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "Name",
+			"order": 6
+		},
+		"DownloadUrl": {
+			"name": "DownloadUrl",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "DownloadUrl",
+			"order": 7
 		}
 	}
 }

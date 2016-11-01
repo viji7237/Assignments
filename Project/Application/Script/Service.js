@@ -72,6 +72,21 @@ serviceModule.factory("userService",
                 }, failure);
 
             },
+            ResetSession: function (email, success, failure) {
+                var callbackSuccess = function (user, success, failure) {
+                    DataManagementService.Login(user, success, failure);
+                }
+
+                resource.get({ Email: email }, function (data) {
+                    if (data.length > 0) {
+                        DataManagementService.Login(data[0], success, failure);
+                    } else {
+                        failure("No Matching Data Found.");
+                    }
+
+                }, failure);
+
+            },
             Logout: function (success, failure) {
                 DataManagementService.Logout(success, failure);
             },
@@ -79,7 +94,7 @@ serviceModule.factory("userService",
                 DataManagementService.IsUserLoggedIn(success, failure);
             },
             VerifyEmail: function (email, success, failure) {
-                resource.get({ Email: email, password: password }, success, failure);
+                resource.get({ Email: email }, success, failure);
             }
         };
     });
@@ -90,8 +105,8 @@ serviceModule.factory("cartService",
 	    var resource = $resource(cartApi);
 
 	    return {
-	        AddItemToCart: function (item, success, failure) {
-	            resource.$save(item, success, failure);
+	        AddItemToCart: function (userId, templateID, createdDate, success, failure) {
+	            resource.save({ UserID: userId, TemplateID: templateID, CreatedDate: createdDate }, success, failure);
 	        },
 	        GetIUserCartItems: function (userId, success, failure) {
 	            resource.get({ UserId: userId }, success, failure);
@@ -108,8 +123,8 @@ serviceModule.factory("orderService",
 	    var resource = $resource(orderApi);
 
 	    return {
-	        AddOrder: function (order, success, failure) {
-	            resource.$save(order, success, failure);
+	        AddOrder: function (userID, templateID, price, purchaseDate, name, downloadUrl, success, failure) {
+	            resource.save({ UserID: userID, TemplateID: templateID, Price: price, PurchasedDate: purchaseDate, OrderStatus:'Successful', Name:name, DownloadUrl:downloadUrl }, success, failure);
 	        },
 	        GetUserOrders: function (userId, success, failure) {
 	            resource.get({ UserId: userId }, success, failure);

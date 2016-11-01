@@ -84,7 +84,7 @@ app.controller("LoginCtrl", function ($scope, $cookies, $routeParams, $route, $l
     init();
 });
 
-app.controller("EditUserCtrl", function ($scope, $cookies, $routeParams, $route, $location, templateService, userService, DataManagementService) {
+app.controller("EditUserCtrl", function ($scope, $cookies, $routeParams, $route, $location, templateService, userService, cartService, orderService, DataManagementService) {
     function init() {
         $scope.Constant = {
             Title: "Update User Info",
@@ -115,32 +115,43 @@ app.controller("EditUserCtrl", function ($scope, $cookies, $routeParams, $route,
         });
     }
 
-    $scope.Cancel = function () {
-        $location.path($scope.$parent.path);
+    $scope.CancelItem = function (item) {
+
+        cartService.DeleteItemInCart(item.id,
+            function (data) {
+                userService.ResetSession(
+                         data.Email,
+                         function (data) {
+                             $scope.User = data;
+                         },
+                         function (data) {
+                         });
+            },
+            function (data) {
+            });
     }
 
-    $scope.RegisterUser = function () {
+    $scope.BuyItem = function (item) {
+
+        var dateObj = new Date();
+        var createdDate = dateObj.getMonth() + "/" + dateObj.getDate() + "/" + dateObj.getFullYear();
+
         var success = function (data) {
-            if (data == undefined) {
-                $scope.Response.Message = "Please enter valid registration details.";
-                $scope.Response.Status = 'Failed';
-                $scope.$parent.IsUserLoggedIn = false;
-                $scope.$parent.User = null;
-            } else {
-                $scope.Response.Message = "";
-                $scope.Response.Status = 'Successful';
-                $scope.$parent.IsUserLoggedIn = true;
-                $scope.$parent.User = data;
-                console.log(data);
-                $location.path($scope.$parent.path);
-            }
-        }
-        var failure = function (data) {
-            $scope.Response.Message = "Please enter valid Registration details.";
-            $scope.Response.Status = 'Failed';
+            cartService.DeleteItemInCart(item.id,
+                function (data) {
+                    userService.ResetSession(
+                             data.Email,
+                             function (data) {
+                                 $scope.User = data;
+                             },
+                             function (data) {
+                             });
+                },
+                function (data) {
+                });
         }
 
-        userService.Update($scope.User, success, failure);
+        orderService.AddOrder($scope.User.id, item.template.id, item.template.Price, createdDate, item.template.Name, item.template.DownloadUrl, success, function (data) { });
     }
 
     init();
@@ -157,7 +168,7 @@ app.controller("RegisterCtrl", function ($scope, $cookies, $routeParams, $route,
             Email: null,
             Password: null,
             Name: null,
-            CreatedDate: _date.getMonth() + "/" + _date.getDate() + "/" + _date.getYear()
+            CreatedDate: _date.getMonth() + "/" + _date.getDate() + "/" + _date.getFullYear()
         };
         $scope.Response = {
             Message: "",
@@ -245,7 +256,7 @@ app.controller("TemplateListCtrl", function ($scope, $cookies, $routeParams, $ro
     init();
 });
 
-app.controller("TemplateCtrl", function ($scope, $cookies, $routeParams, $route, $location, templateService) {
+app.controller("TemplateCtrl", function ($scope, $cookies, $routeParams, $route, $location, templateService, userService) {
     function init() {
         $scope.Constant = {
             Title: "Template Page",
@@ -256,14 +267,132 @@ app.controller("TemplateCtrl", function ($scope, $cookies, $routeParams, $route,
         $scope.Item = [];
         $scope.$parent.path = $location.path();
 
+        var user = $cookies.getObject("user");
+
         templateService.getTemplateById($routeParams.id,
         	function (data) {
         	    $scope.Item = data;
-        	    console.log(data);
+        	    $scope.Item.ShowDownload = false;
+
+        	    if (user != undefined) {
+        	        var result = user.orders.find(function (item) {
+        	            return item.TemplateID == $scope.Item.id;
+        	        });
+
+        	        if (result != undefined) {
+        	            $scope.Item.ShowDownload = true;
+        	        }
+        	    }
+
         	},
 	        function (failed) {
 	            console.log(failed);
 	        });
     }
+
+    init();
+});
+
+app.controller("CartCtrl", function ($scope, $cookies, $routeParams, $route, $location, templateService, cartService, userService, orderService) {
+    function init() {
+        $scope.Constant = {
+            Title: "Template Page",
+            Description: "Purchase Template Page"
+        }
+
+        $scope.active = "Template";
+        $scope.Item = [];
+        $scope.$parent.path = $location.path();
+
+        var success = function (data) {
+            if (data == undefined) {
+                $location.path("/login");
+            }
+            else {
+                var dateObj = new Date();
+                var createdDate = dateObj.getMonth() + "/" + dateObj.getDate() + "/" + dateObj.getFullYear();
+
+                var addItemFlag = false;
+                var itemInOrder = data.orders.find(function (item) {
+                    return item.TemplateID == $routeParams.id;
+                });
+
+                addItemFlag = itemInOrder != undefined || itemInOrder != null;
+
+                if (!addItemFlag) {
+                    var itemInCart = data.cartitems.find(function (item) {
+                        return item.TemplateID == $routeParams.id;
+                    });
+
+                    addItemFlag = itemInCart != undefined || itemInCart != null;
+                }
+                if (!addItemFlag) {
+                    cartService.AddItemToCart(
+                        data.id,
+                        $routeParams.id,
+                        createdDate,
+                        function (success) {
+                            userService.ResetSession(
+                                data.Email,
+                                function (data) {
+                                    $scope.CartItems = data.cartitems;
+                                },
+                                function (data) {
+                                });
+                        },
+                        function (failure) {
+                        });
+                } else {
+                    $scope.CartItems = data.cartitems;
+                }
+            }
+        }
+        var failure = function (data) {
+            $location.path("/login");
+        }
+
+        userService.IsUserLoggedIn(success, failure);
+    }
+
+    $scope.CancelItem = function (item) {
+
+        cartService.DeleteItemInCart(item.id,
+            function (data) {
+                userService.ResetSession(
+                         data.Email,
+                         function (data) {
+                             $scope.CartItems = data.cartitems;
+                         },
+                         function (data) {
+                         });
+            },
+            function (data) {
+            });
+    }
+
+    $scope.BuyItem = function (item) {
+
+        var dateObj = new Date();
+        var createdDate = dateObj.getMonth() + "/" + dateObj.getDate() + "/" + dateObj.getYear();
+
+        var success = function (data) {
+            cartService.DeleteItemInCart(item.id,
+                function (data) {
+                    userService.ResetSession(
+                             data.Email,
+                             function (data) {
+                                 $location.path("/userdata")
+                             },
+                             function (data) {
+                             });
+                },
+                function (data) {
+                });
+        }
+
+        orderService.AddOrder($scope.User.id, item.template.id, item.template.Price, createdDate,item.template.Name, item.template.DownloadUrl, success, function (data) { });
+
+    }
+
     init();
 });
