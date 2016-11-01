@@ -344,6 +344,7 @@ app.controller("CartCtrl", function ($scope, $cookies, $routeParams, $route, $lo
                         });
                 } else {
                     $scope.CartItems = data.cartitems;
+                    alert('Item is already added to Cart or Purchase already');
                 }
             }
         }
